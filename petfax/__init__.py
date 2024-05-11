@@ -11,7 +11,12 @@ def create_app():
     # register pet blueprint
     from . import pet
     app.register_blueprint(pet.bp)
- 
+    
+    from petfax.pet import bp as pet_bp
+    app.register_blueprint(pet_bp, url_prefix='/pets')
+    
+
+    #return the app
     return app
     
     
