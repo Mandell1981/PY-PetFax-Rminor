@@ -1,22 +1,23 @@
-from flask import (Blueprint, render_template, request)
+from flask import (Blueprint, render_template)
 import json
 
 pets = json.load(open('pets.json'))
-print(pets)
+
 
 bp = Blueprint('pet', __name__, url_prefix="/pets")
 
 #index route
 @bp.route('/')
 def index():
-    return render_template('index.html', pets=pets)
+    return render_template('pets/index.html', pets=pets)
 
 #show route
-@bp.route('/pets/<int:index>')
-def show(index):
-    pet = pets[index]
-    return render_template('show.html', pet=pet)
+@bp.route('/pets/<int:id>')
+def show(id):
+    pet = pets[id - 1]
+    return render_template('pets/show.html', pet=pet)
 
+'''
 @bp.route('/create')
 def create():
    # return render_template('create.html', pets=pets)
@@ -31,3 +32,4 @@ def submit_fact():
     submitter = request.form['submitter']
     fact = request.form['fact']
     return f"Submitter: {submitter}, Fact: {fact}"
+'''
